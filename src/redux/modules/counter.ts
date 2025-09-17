@@ -14,11 +14,23 @@ const DECREMENT = "DECREMENT" as const;
 interface IncrementAction {
   type: typeof INCREMENT;
 }
-
 // 2. 감소 액션 타입 정의
 interface DecrementAction {
   type: typeof DECREMENT;
 }
+
+// 추가된 코드 👇 - Action Creator를 만들어 줍니다. 
+export const increment = () => {
+  return {
+    type: INCREMENT,
+  };
+};
+
+export const decrement = () => {
+  return {
+    type: DECREMENT,
+  };
+};
 
 // 3. 모든 액션 타입을 유니온(Union)으로 묶습니다.
 type CounterAction = IncrementAction | DecrementAction;
@@ -31,12 +43,12 @@ const counter = (state = initialState, action: CounterAction) => {
   switch (action.type) {
     case INCREMENT:
       return {
-        ...state, // 기존 상태를 복사
+        ...state, // 불변성 유지
         number: state.number + 1, // number 값을 1 증가
       };
     case DECREMENT:
       return {
-        ...state, // 기존 상태를 복사
+        ...state, // 불변성 유지
         number: state.number - 1, // number 값을 1 감소
       };
     default:
