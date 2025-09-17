@@ -1,5 +1,5 @@
 import { useSelector,useDispatch } from "react-redux";
-import type { RootState } from "./redux/config/configStore";
+import type { RootState,AppDispatch } from "./redux/config/configStore";
 import { increment, decrement } from "./redux/modules/counter";
 
 const App = () => {
@@ -10,9 +10,7 @@ const App = () => {
   number 상태를 공유하는 페이지만 리렌더링이 발생하여 useContext에 비해 최적화
    */
   const counterStore = useSelector((state: RootState) => state.counter.number)
-  const dispatch = useDispatch(); // 액션을 리듀서로 보내주는 파이프 
-
-  console.log(counterStore); 
+  const dispatch = useDispatch<AppDispatch>(); // 액션을 리듀서로 보내주는 파이프 
 
   return(
     <>

@@ -19,7 +19,6 @@ interface DecrementAction {
   type: typeof DECREMENT;
 }
 
-// 추가된 코드 👇 - Action Creator를 만들어 줍니다. 
 export const increment = () => {
   return {
     type: INCREMENT,
@@ -32,7 +31,7 @@ export const decrement = () => {
   };
 };
 
-// 3. 모든 액션 타입을 유니온(Union)으로 묶습니다.
+// 3. 액션타입 유니온으로 묶기
 type CounterAction = IncrementAction | DecrementAction;
 
 
@@ -43,12 +42,12 @@ const counter = (state = initialState, action: CounterAction) => {
   switch (action.type) {
     case INCREMENT:
       return {
-        ...state, // 불변성 유지
+        ...state, // 불변성 유지 -> 다음주에 RTK 사용 시 대체 가능
         number: state.number + 1, // number 값을 1 증가
       };
     case DECREMENT:
       return {
-        ...state, // 불변성 유지
+        ...state, // 불변성 유지 -> 다음주에 RTK 사용 시 대체 가능
         number: state.number - 1, // number 값을 1 감소
       };
     default:
