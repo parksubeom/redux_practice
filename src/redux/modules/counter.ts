@@ -13,23 +13,29 @@ const DECREMENT = "DECREMENT" as const;
 // 1. 증가 액션 타입 정의
 interface IncrementAction {
   type: typeof INCREMENT;
+  payload:number
 }
 // 2. 감소 액션 타입 정의
 interface DecrementAction {
   type: typeof DECREMENT;
+  payload:number
 }
 
-export const increment = () => {
+
+export const increment = (value:number) => {
   return {
     type: INCREMENT,
+    payload:value
   };
 };
 
-export const decrement = () => {
+export const decrement = (value:number) => {
   return {
     type: DECREMENT,
+    payload:value
   };
 };
+
 
 // 3. 액션타입 유니온으로 묶기
 type CounterAction = IncrementAction | DecrementAction;
@@ -38,17 +44,19 @@ type CounterAction = IncrementAction | DecrementAction;
 
 // 리듀서 -> 액션 타입에 따라 상태 값을 어떻게 리턴 해줄지 정하는 함수.
 const counter = (state = initialState, action: CounterAction) => {
-  console.log(action)
+ 
   switch (action.type) {
     case INCREMENT:
+      console.log(action.payload)
       return {
         ...state, // 불변성 유지 -> 다음주에 RTK 사용 시 대체 가능
-        number: state.number + 1, // number 값을 1 증가
+        number: state.number + action.payload, 
       };
     case DECREMENT:
+      console.log(action.payload)
       return {
         ...state, // 불변성 유지 -> 다음주에 RTK 사용 시 대체 가능
-        number: state.number - 1, // number 값을 1 감소
+        number: state.number - action.payload, 
       };
     default:
       return state;
