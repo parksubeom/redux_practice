@@ -1,43 +1,39 @@
-import { useSelector,useDispatch } from "react-redux";
-import type { RootState,AppDispatch } from "./redux/config/configStore";
-import { addTodo, deleteTodo } from "./redux/modules/counter";
-import type { ChangeEvent} from "react";
-import { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import styled, { ThemeProvider } from 'styled-components';
+import { useAppSelector } from './hooks/reduxHooks';
+import { GlobalStyle } from './styles/GlobalStyle';
+import { theme } from './styles/theme';
 
-const App = () => {
+import Header from './components/Header';
+import LoginPage from './pages/LoginPage';
+import MainPage from './pages/MainPage';
+import DetailPage from './pages/DetailPage';
 
-  interface TodoListType {
-  title: string,
-  author: string,
-  date: string,
-  content: string,
- 
+function App() {
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Header />
+        <MainContainer>
+          <Routes>
+            <Route path="/login" element={!isAuthenticated ? <LoginPage /> : <Navigate to="/" />} />
+            <Route path="/" element={<MainPage />} />
+            <Route path="/post/:id" element={<DetailPage />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </MainContainer>
+      </BrowserRouter>
+    </ThemeProvider>
+  );
 }
 
-  /**
-  리듀서로부터 상태값을 받아오는 훅
-  리듀서의 여러 상태 중 number만 가져옴
-  number 상태를 공유하는 페이지만 리렌더링이 발생하여 useContext에 비해 최적화
-   */
-  const [todoList, setTodoList] = useState<TodoListType>({
-  title: "",
-  author: "",
-  date: "",
-  content: "",
- 
-});
-  const counterStore = useSelector((state: RootState) => state.counter.todoContent)
-  const dispatch = useDispatch<AppDispatch>(); // 액션을 리듀서로 보내주는 파이프 
-  const onChangeValue = (e:ChangeEvent<HTMLInputElement>) => {
-    const value = +e.target.value
-  }
-
-  return(
-    <>
-    <input type="text" onChange={onChangeValue}></input>
-    </>
-  ) 
-  
-};
+const MainContainer = styled.main`
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+`;
 
 export default App;
