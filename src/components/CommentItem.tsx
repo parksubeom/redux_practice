@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import type { Comment } from '../types';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
-import { deleteComment, editComment } from '../features/posts/postSlice';
+import { deleteComment, editComment } from '../features/posts/postsSlice';
 
 interface CommentItemProps {
   comment: Comment;

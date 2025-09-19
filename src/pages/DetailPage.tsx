@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
-import { deletePost, editPost, addComment, toggleLike, toggleFollow } from '../features/posts/postSlice';
+import { deletePost, editPost, addComment, toggleLike, toggleFollow } from '../features/posts/postsSlice';
 import CommentItem from '../components/CommentItem';
 import type { Comment } from '../types';
 
@@ -100,7 +100,7 @@ const DetailPage = () => {
               </>
             )}
           </ActionButtons>
-          <LikeButton onClick={handleLike} liked={isLiked}>👍 좋아요 {post.likes.length}</LikeButton>
+          <LikeButton onClick={handleLike} $liked={isLiked}>👍 좋아요 {post.likes.length}</LikeButton>
         </>
       )}
 
@@ -131,12 +131,12 @@ const Meta = styled.div` display: flex; gap: 1rem; color: #6c757d; margin-bottom
 const Content = styled.div` white-space: pre-wrap; line-height: 1.7; font-size: 1.1rem; min-height: 200px; padding: 1rem 0; `;
 const ActionButtons = styled.div` display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; `;
 const Button = styled.button` padding: 0.5rem 1rem; border-radius: 4px; background: #e9ecef; &:hover { background: #ced4da; } `;
-const LikeButton = styled.button<{ liked: boolean }>`
+const LikeButton = styled.button<{ $liked: boolean }>`
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     margin: 2rem auto; padding: 0.75rem 1.5rem; font-size: 1.1rem; border-radius: 25px;
-    border: 1px solid ${({ liked, theme }) => liked ? theme.colors.primary : theme.colors.border};
-    background-color: ${({ liked, theme }) => liked ? theme.colors.primary : theme.colors.white};
-    color: ${({ liked, theme }) => liked ? theme.colors.white : theme.colors.dark};
+    border: 1px solid ${({ $liked, theme }) => $liked ? theme.colors.primary : theme.colors.border};
+    background-color: ${({ $liked, theme }) => $liked ? theme.colors.primary : theme.colors.white};
+    color: ${({ $liked, theme }) => $liked ? theme.colors.white : theme.colors.dark};
     transition: all 0.2s;
 `;
 const FollowButton = styled.button<{ following: boolean }>`

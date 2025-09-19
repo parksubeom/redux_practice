@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
-import { addPost } from '../features/posts/postSlice';
+import { addPost } from '../features/posts/postsSlice';
 import PostCard from '../components/PostCard';
 import type { Post } from '../types';
 const POSTS_PER_PAGE = 5;
