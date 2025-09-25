@@ -1,22 +1,24 @@
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
-import { logout } from '../features/auth/authSlice';
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { logout } from "../features/auth/authSlice";
 
 const Header = () => {
-  const { isAuthenticated, currentUser } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, currentUser } = useAppSelector(
+    (state) => state.auth
+  );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <Nav>
       <NavContainer>
-        <Logo to="/">Modern Blog</Logo>
+        <Logo to="/">Redux Practice todo</Logo>
         <Menu>
           {isAuthenticated ? (
             <>
@@ -24,7 +26,9 @@ const Header = () => {
               <AuthButton onClick={handleLogout}>로그아웃</AuthButton>
             </>
           ) : (
-            <AuthButton onClick={() => navigate('/login')}>로그인 / 회원가입</AuthButton>
+            <AuthButton onClick={() => navigate("/login")}>
+              로그인 / 회원가입
+            </AuthButton>
           )}
         </Menu>
       </NavContainer>

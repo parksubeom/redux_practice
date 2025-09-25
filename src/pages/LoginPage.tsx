@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { useAppDispatch } from '../hooks/reduxHooks';
-import { login, signUp } from '../features/auth/authSlice';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { login, signUp } from "../features/auth/authSlice";
 
 const LoginPage = () => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const validateForm = () => {
     if (!/^[a-zA-Z0-9]{4,12}$/.test(id)) {
-      setError('ID는 4~12자의 영문/숫자여야 합니다.');
+      setError("ID는 4~12자의 영문/숫자여야 합니다.");
       return false;
     }
     if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
-      setError('비밀번호는 8자 이상, 영문과 숫자를 포함해야 합니다.');
+      setError("비밀번호는 8자 이상, 영문과 숫자를 포함해야 합니다.");
       return false;
     }
-    setError('');
+    setError("");
     return true;
   };
 
@@ -29,23 +29,20 @@ const LoginPage = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // 실제 앱에서는 백엔드와 통신해야 합니다.
-    // 여기서는 로컬스토리지에 저장된 사용자 정보가 없으므로
-    // 로그인/회원가입 로직을 단순화합니다.
     if (isLogin) {
-      // 로그인 시도 (여기서는 항상 성공)
+      // 로그인 시도지만 무조건 넘어가는걸로
       dispatch(login({ id }));
     } else {
-      // 회원가입 시도
+      // 회원가입지만 그냥 로그인 무조건되니까 패스
       dispatch(signUp({ id }));
     }
-    navigate('/');
+    navigate("/");
   };
 
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <Title>{isLogin ? '로그인' : '회원가입'}</Title>
+        <Title>{isLogin ? "로그인" : "회원가입"}</Title>
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Input
           type="text"
@@ -59,9 +56,13 @@ const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <SubmitButton type="submit">{isLogin ? '로그인' : '회원가입'}</SubmitButton>
+        <SubmitButton type="submit">
+          {isLogin ? "로그인" : "회원가입"}
+        </SubmitButton>
         <ToggleButton onClick={() => setIsLogin(!isLogin)}>
-          {isLogin ? '계정이 없으신가요? 회원가입' : '이미 계정이 있으신가요? 로그인'}
+          {isLogin
+            ? "계정이 없으신가요? 회원가입"
+            : "이미 계정이 있으신가요? 로그인"}
         </ToggleButton>
       </Form>
     </Container>
@@ -119,7 +120,7 @@ const ToggleButton = styled.button`
 `;
 
 const ErrorMessage = styled.p`
-    color: ${({ theme }) => theme.colors.danger};
-    font-size: 0.9rem;
-    text-align: center;
+  color: ${({ theme }) => theme.colors.danger};
+  font-size: 0.9rem;
+  text-align: center;
 `;
