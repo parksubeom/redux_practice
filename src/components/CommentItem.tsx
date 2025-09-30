@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import type { Comment } from '../types';
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
-import { deleteComment, editComment } from '../features/posts/postsSlice';
+import React, { useState } from "react";
+import styled from "styled-components";
+import type { Comment } from "../types";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { deleteComment, editComment } from "../features/posts/postsSlice";
 
 interface CommentItemProps {
   comment: Comment;
@@ -17,15 +17,17 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
   const canEdit = currentUser?.id === comment.authorId;
 
   const handleDelete = () => {
-    if (window.confirm('정말 삭제하시겠습니까?')) {
-      dispatch(deleteComment({ postId: comment.postId, commentId: comment.id }));
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      dispatch(
+        deleteComment({ postId: comment.postId, commentId: comment.id })
+      );
     }
   };
 
   const handleEdit = () => {
-      dispatch(editComment({ ...comment, content: editedContent }));
-      setIsEditing(false);
-  }
+    dispatch(editComment({ ...comment, content: editedContent }));
+    setIsEditing(false);
+  };
 
   return (
     <CommentContainer>
@@ -35,20 +37,24 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
           <ButtonWrapper>
             {isEditing ? (
               <>
-                  <ActionButton onClick={handleEdit}>저장</ActionButton>
-                  <ActionButton onClick={() => setIsEditing(false)}>취소</ActionButton>
+                <ActionButton onClick={handleEdit}>저장</ActionButton>
+                <ActionButton onClick={() => setIsEditing(false)}>
+                  취소
+                </ActionButton>
               </>
             ) : (
               <>
-                  <ActionButton onClick={() => setIsEditing(true)}>수정</ActionButton>
-                  <ActionButton onClick={handleDelete}>삭제</ActionButton>
+                <ActionButton onClick={() => setIsEditing(true)}>
+                  수정
+                </ActionButton>
+                <ActionButton onClick={handleDelete}>삭제</ActionButton>
               </>
             )}
           </ButtonWrapper>
         )}
       </CommentHeader>
       {isEditing ? (
-        <EditInput 
+        <EditInput
           value={editedContent}
           onChange={(e) => setEditedContent(e.target.value)}
         />
