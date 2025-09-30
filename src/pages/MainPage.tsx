@@ -21,7 +21,10 @@ const MainPage = () => {
 
   const handlePostSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !content.trim() || !currentUser) return;
+    if (!title.trim() || !content.trim() || !currentUser) {
+      alert("제목 또는 내용을 입력해주세요");
+      return;
+    }
 
     const newPost: Post = {
       id: Date.now().toString(),
