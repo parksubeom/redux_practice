@@ -146,7 +146,6 @@ const DetailPage = () => {
   );
 };
 export default DetailPage;
-// ... (styled-components 코드)
 const Container = styled.div`
   background: white;
   padding: 2rem;
