@@ -1,41 +1,44 @@
-export const theme = {
-  colors: {
-    primary: "#0d6efd",
-    secondary: "#6c757d",
-    success: "#198754",
-    danger: "#dc3545",
-    light: "#f8f9fa",
-    dark: "#212529",
-    white: "#fff",
-    border: "#dee2e6",
-  },
-  shadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+// themes.ts
+
+import { DefaultTheme } from "styled-components";
+
+// 💡 commonColors 정의: 테마 모드에 상관없이 고정되는 색상들
+export const commonColors = {
+  primary: "#0d6efd",
+  secondary: "#6c757d",
+  success: "#198754",
+  danger: "#dc3545",
+  white: "#fff",
+  // light, dark 등은 테마 모드에 따라 다르게 정의되므로 제외합니다.
 };
 
+// 💡 lightTheme 정의: Light Mode에 특화된 색상과 공통 색상 병합
 export const lightTheme: DefaultTheme = {
   colors: {
     ...commonColors,
-    background: "#f8f9fa", // 전체 배경: 매우 밝은 회색
-    cardBackground: commonColors.white, // 카드/폼 배경: 흰색
-    text: "#212529", // 텍스트 색상: 거의 검은색
-    light: "#e9ecef", // 은은한 배경 (버튼 비활성 등)
-    border: "#ced4da", // 경계선 색상
+    light: "#f8f9fa", // 💡 테마 모드에 따라 달라지는 밝은 색상
+    dark: "#212529", // 💡 테마 모드에 따라 달라지는 어두운 색상
+    background: "#f8f9fa",
+    cardBackground: commonColors.white,
+    text: "#212529",
+    border: "#dee2e6", // 경계선 색상
   },
-  shadow: "0 4px 12px rgba(0, 0, 0, 0.1)", // 밝은 그림자
+  shadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
 };
 
-// 💡 다크 테마 정의
+// 💡 darkTheme 정의: Dark Mode에 특화된 색상과 공통 색상 병합
 export const darkTheme: DefaultTheme = {
   colors: {
     ...commonColors,
-    background: "#212529", // 전체 배경: 진한 회색 (거의 검은색)
-    cardBackground: "#343a40", // 카드/폼 배경: 조금 더 밝은 어두운 회색
-    text: commonColors.white, // 텍스트 색상: 흰색
-    light: "#495057", // 은은한 배경
-    border: "#495057", // 경계선 색상
+    light: "#495057", // 💡 테마 모드에 따라 달라지는 밝은 색상 (다크 모드용)
+    dark: "#212529", // 💡 테마 모드에 따라 달라지는 어두운 색상 (다크 모드용)
+    background: "#212529",
+    cardBackground: "#343a40",
+    text: commonColors.white,
+    border: "#495057",
   },
-  shadow: "0 4px 12px rgba(0, 0, 0, 0.4)", // 어두운 그림자
+  shadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
 };
 
-// theme 객체의 타입을 추론하여 ThemeType 이라는 이름으로 export 합니다.
-export type ThemeType = typeof theme;
+// 💡 ThemeType 정의: lightTheme/darkTheme 중 하나의 타입을 추론하여 export 합니다.
+export type ThemeType = typeof lightTheme;
